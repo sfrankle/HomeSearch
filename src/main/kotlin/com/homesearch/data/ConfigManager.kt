@@ -5,39 +5,39 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategies
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.homesearch.core.AppConstants
 import com.homesearch.core.AppPaths
-import java.io.File
 import mu.KotlinLogging
+import java.io.File
 
 private val logger = KotlinLogging.logger {}
 
 data class AppMetadata(
-        val name: String,
-        val version: String,
-        val description: String,
+    val name: String,
+    val version: String,
+    val description: String,
 )
 
 data class UserAppConfig(
-        val schemaVersion: Int = 1,
-        val window: WindowConfig = WindowConfig(),
-        val user: UserConfig = UserConfig(),
+    val schemaVersion: Int = 1,
+    val window: WindowConfig = WindowConfig(),
+    val user: UserConfig = UserConfig(),
 )
 
 data class WindowConfig(
-        val width: Int = 900,
-        val height: Int = 700,
-        val isMaximized: Boolean = false,
+    val width: Int = 900,
+    val height: Int = 700,
+    val isMaximized: Boolean = false,
 )
 
 data class UserConfig(
-        val theme: String = "light",
-        val language: String = "en",
+    val theme: String = "light",
+    val language: String = "en",
 )
 
 object ConfigManager {
     private val mapper =
-            ObjectMapper()
-                    .registerModule(KotlinModule.Builder().build())
-                    .setPropertyNamingStrategy(PropertyNamingStrategies.LOWER_CAMEL_CASE)
+        ObjectMapper()
+            .registerModule(KotlinModule.Builder().build())
+            .setPropertyNamingStrategy(PropertyNamingStrategies.LOWER_CAMEL_CASE)
 
     private val configFile = AppPaths.configFile
 
@@ -53,11 +53,11 @@ object ConfigManager {
                 UserAppConfig().also { save(it) }
             }
         }
-                .getOrElse { e ->
-                    logger.error(e) { "Failed to load config, falling back to defaults" }
-                    backupCorrupted()
-                    UserAppConfig().also { save(it) }
-                }
+            .getOrElse { e ->
+                logger.error(e) { "Failed to load config, falling back to defaults" }
+                backupCorrupted()
+                UserAppConfig().also { save(it) }
+            }
     }
 
     fun save(newConfig: UserAppConfig = config) {
@@ -66,7 +66,7 @@ object ConfigManager {
             mapper.writerWithDefaultPrettyPrinter().writeValue(configFile, newConfig)
             config = newConfig
         }
-                .onFailure { e -> logger.error(e) { "Failed to save config" } }
+            .onFailure { e -> logger.error(e) { "Failed to save config" } }
     }
 
     private fun backupCorrupted() {
@@ -78,9 +78,9 @@ object ConfigManager {
 
     private fun loadAppMetadata(): AppMetadata {
         return AppMetadata(
-                name = AppConstants.APP_NAME,
-                version = AppConstants.APP_VERSION,
-                description = AppConstants.APP_DESCRIPTION,
+            name = AppConstants.APP_NAME,
+            version = AppConstants.APP_VERSION,
+            description = AppConstants.APP_DESCRIPTION,
         )
     }
 }

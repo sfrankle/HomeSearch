@@ -1,7 +1,7 @@
 package com.homesearch.core
 
-import java.io.File
 import net.harawata.appdirs.AppDirsFactory
+import java.io.File
 
 object AppPaths {
     private val appDirs = AppDirsFactory.getInstance()
