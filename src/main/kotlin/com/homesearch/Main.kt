@@ -1,29 +1,54 @@
 package com.homesearch
 
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.runtime.*
 import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import com.homesearch.core.AppPaths
 import com.homesearch.data.ConfigManager
 import mu.KotlinLogging
-import com.homesearch.core.AppPaths
-import org.slf4j.LoggerFactory
+import javax.swing.JOptionPane
 
 fun main() {
-    // Configure log dir for Logback
-    System.setProperty("HOMESARCH_LOG_DIR", AppPaths.logsDir.absolutePath)
+    // Point Logback to the right log dir
+    System.setProperty("HOMESEARCH_LOG_DIR", AppPaths.logsDir.absolutePath)
 
-    val logger = KotlinLogging.logger {}
-    logger.info { "Starting HomeSearch v1.0.0" }
-    logger.info { "Config file at ${AppPaths.configFile.absolutePath}" }
-
+    // Ensure config loads
     val cfg = ConfigManager.config
 
+    val logger = KotlinLogging.logger {}
+
+    // Log startup info
+    logger.info { "Starting ${cfg.app.name} v${cfg.app.version}" }
+    logger.info { "Config file at ${AppPaths.configFile.absolutePath}" }
+    logger.info {
+        "Running on ${System.getProperty(
+            "os.name",
+        )} ${System.getProperty("os.version")} (${System.getProperty("os.arch")})"
+    }
+
+    // 🔑 Global handler for uncaught exceptions
+    Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
+        logger.error(throwable) { "Unhandled exception in thread ${thread.name}" }
+
+        // Show user-friendly popup (Swing dialog)
+        JOptionPane.showMessageDialog(
+            null,
+            "Oops! Something went wrong.\nDetails were saved to the logs.",
+            "${cfg.app.name} Error",
+            JOptionPane.ERROR_MESSAGE,
+        )
+    }
+
     application {
-        Window(onCloseRequest = ::exitApplication, title = "HomeSearch") {
+        Window(onCloseRequest = { System.exit(0) }, title = "${cfg.app.name} v${cfg.app.version}") {
             App()
         }
     }

@@ -1,0 +1,15 @@
+app:
+  name: "HomeSearch Pro"
+  version: "2.0.0"
+  description: "An advanced desktop application for home search functionality"
+
+# Application configuration
+config:
+  schemaVersion: 1
+  window:
+    width: 900
+    height: 700
+    isMaximized: false
+  user:
+    theme: "light"
+    language: "en"
