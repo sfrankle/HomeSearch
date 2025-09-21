@@ -1,0 +1,14 @@
+{
+    "editor.codeActionsOnSave": {
+        "source.removeUnusedImports": "explicit"
+    },
+    "files.associations": {
+        "build.gradle.kts": "gradle"
+    },
+    "kotlin.languageServer.enable": true,
+    "[gradle]": {
+        "editor.codeActionsOnSave": {
+            "source.removeUnusedImports": "never"
+        }
+    }
+}

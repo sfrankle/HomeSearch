@@ -1,20 +1,19 @@
 package com.homesearch.core
 
-import net.harawata.appdirs.AppDirsFactory
 import java.io.File
+import net.harawata.appdirs.AppDirsFactory
 
 object AppPaths {
-    private const val APP_NAME = "HomeSearch"
     private val appDirs = AppDirsFactory.getInstance()
 
-    // Root “user data” dir (survives reinstalls)
+    // Root "user data" dir (survives reinstalls)
     val dataRoot: File by lazy {
-        File(appDirs.getUserDataDir(APP_NAME, null, null)).apply { mkdirs() }
+        File(appDirs.getUserDataDir(AppConstants.APP_NAME, null, null)).apply { mkdirs() }
     }
 
     // Config dir + file
     val configDir: File by lazy {
-        File(appDirs.getUserConfigDir(APP_NAME, null, null)).apply { mkdirs() }
+        File(appDirs.getUserConfigDir(AppConstants.APP_NAME, null, null)).apply { mkdirs() }
     }
     val configFile: File by lazy { File(configDir, "config.json") }
 

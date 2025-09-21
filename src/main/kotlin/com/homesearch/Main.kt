@@ -20,13 +20,11 @@ fun main() {
     // Point Logback to the right log dir
     System.setProperty("HOMESEARCH_LOG_DIR", AppPaths.logsDir.absolutePath)
 
-    // Ensure config loads
-    val cfg = ConfigManager.config
-
     val logger = KotlinLogging.logger {}
 
     // Log startup info
-    logger.info { "Starting ${cfg.app.name} v${cfg.app.version}" }
+    val appMetadata = ConfigManager.appMetadata
+    logger.info { "Starting ${appMetadata.name} v${appMetadata.version}" }
     logger.info { "Config file at ${AppPaths.configFile.absolutePath}" }
     logger.info {
         "Running on ${System.getProperty(
@@ -42,15 +40,16 @@ fun main() {
         JOptionPane.showMessageDialog(
             null,
             "Oops! Something went wrong.\nDetails were saved to the logs.",
-            "${cfg.app.name} Error",
+            "${appMetadata.name} Error",
             JOptionPane.ERROR_MESSAGE,
         )
     }
 
     application {
-        Window(onCloseRequest = { System.exit(0) }, title = "${cfg.app.name} v${cfg.app.version}") {
-            App()
-        }
+        Window(
+            onCloseRequest = { System.exit(0) },
+            title = "${appMetadata.name} v${appMetadata.version}",
+        ) { App() }
     }
 }
 
