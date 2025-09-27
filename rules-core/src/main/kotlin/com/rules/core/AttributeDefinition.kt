@@ -13,10 +13,10 @@ import java.util.UUID
  * @param order Optional ordering for UI display
  */
 data class AttributeDefinition(
-        val id: UUID = UUID.randomUUID(),
-        val name: String,
-        val displayName: String,
-        val type: AttributeType,
-        val category: String? = null,
-        val order: Int? = null
+    val id: UUID = UUID.randomUUID(),
+    val name: String,
+    val displayName: String,
+    val type: AttributeType,
+    val category: String? = null,
+    val order: Int? = null,
 )

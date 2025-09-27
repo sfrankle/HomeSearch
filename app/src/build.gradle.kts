@@ -60,18 +60,3 @@ compose.desktop {
         }
     }
 }
-
-spotless {
-    kotlin {
-        target("src/**/*.kt")
-        ktlint("1.2.1")
-                .editorConfigOverride(
-                        mapOf(
-                                // Compose convention: allow PascalCase composables
-                                "ktlint_standard_function-naming" to "disabled",
-                                // Optional: allow *
-                                "ktlint_standard_no-wildcard-imports" to "disabled"
-                        )
-                )
-    }
-}

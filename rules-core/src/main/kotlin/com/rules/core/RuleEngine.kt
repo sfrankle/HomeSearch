@@ -13,11 +13,7 @@ class RuleEngine {
      * @param rules List of rules to apply
      * @return EvaluationResult with individual attribute scores and total score
      */
-    fun evaluate(
-            entry: Entry,
-            attributes: List<AttributeDefinition>,
-            rules: List<Rule>
-    ): EvaluationResult {
+    fun evaluate(entry: Entry, attributes: List<AttributeDefinition>, rules: List<Rule>): EvaluationResult {
         val attributeScores = mutableMapOf<UUID, Int>()
 
         // Initialize all attributes with 0 score
@@ -48,9 +44,9 @@ class RuleEngine {
 
     /** Evaluates a single rule against an attribute value. */
     private fun evaluateRule(
-            rule: Rule,
-            value: AttributeValue,
-            @Suppress("UNUSED_PARAMETER") attribute: AttributeDefinition
+        rule: Rule,
+        value: AttributeValue,
+        @Suppress("UNUSED_PARAMETER") attribute: AttributeDefinition,
     ): Int {
         return when (rule.condition) {
             is RuleCondition.InfoOnly -> 0

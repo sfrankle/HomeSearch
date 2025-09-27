@@ -1,8 +1,8 @@
 package com.rules.core
 
-import java.util.UUID
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import java.util.UUID
 
 class RuleTest {
 

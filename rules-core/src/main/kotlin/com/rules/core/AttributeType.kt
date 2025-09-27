@@ -5,5 +5,5 @@ enum class AttributeType {
     INTEGER,
     DECIMAL,
     STRING,
-    ENUM
+    ENUM,
 }
