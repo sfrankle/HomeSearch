@@ -1,4 +1,4 @@
-package com.rules.core
+package com.rules.core.models
 
 /**
  * Defines how attribute values are evaluated against rules.

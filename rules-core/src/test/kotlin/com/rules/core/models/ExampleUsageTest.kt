@@ -1,5 +1,6 @@
-package com.rules.core
+package com.rules.core.models
 
+import com.rules.core.RuleEngine
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
