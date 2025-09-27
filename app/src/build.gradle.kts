@@ -30,11 +30,15 @@ dependencies {
     implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
     implementation("ch.qos.logback:logback-classic:1.5.6")
 
+    // Rules engine core
+    implementation(project(":rules-core"))
+
     // --- tests ---
     testImplementation(kotlin("test"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.10.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.2")
 }
+
 
 val appName = "HomeSearch"
 val appVersion = "1.0.0"
@@ -71,5 +75,3 @@ spotless {
                 )
     }
 }
-
-tasks.test { useJUnitPlatform() }
