@@ -1,12 +1,12 @@
 plugins {
-    // Apply Spotless only at the root
+    kotlin("jvm") version "1.9.23" apply false
+    id("org.jetbrains.compose") version "1.6.10" apply false
     id("com.diffplug.spotless") version "6.25.0"
 }
 
 subprojects {
     apply(plugin = "com.diffplug.spotless")
 
-    // 🔑 Add repos so Spotless can resolve ktlint
     repositories {
         google()
         mavenCentral()
