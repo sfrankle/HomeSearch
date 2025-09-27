@@ -1,8 +1,8 @@
 package com.rules.core
 
 /**
- * Represents a value that can be stored against an attribute. Sealed class to handle different data
- * types safely.
+ * Represents a value that can be stored against an attribute.
+ * Sealed class to handle different data types safely.
  */
 sealed class AttributeValue {
     data class IntegerValue(val value: Int) : AttributeValue()

@@ -3,11 +3,11 @@ package com.rules.core
 import java.util.UUID
 
 /**
- * A record of real-world data to be evaluated against rules.
+ * A record of data to be evaluated against rules.
  *
- * @param id Unique identifier for the entry
  * @param values Map of attribute IDs to their corresponding values
  * @param evaluatedScore The computed total score (set by RuleEngine)
+ * @param id Unique identifier for the entry
  */
 data class Entry(
     val values: Map<UUID, AttributeValue>,
