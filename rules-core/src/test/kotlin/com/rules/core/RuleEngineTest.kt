@@ -1,5 +1,11 @@
 package com.rules.core
 
+import com.rules.core.models.AttributeDefinition
+import com.rules.core.models.AttributeType
+import com.rules.core.models.AttributeValue
+import com.rules.core.models.Entry
+import com.rules.core.models.Rule
+import com.rules.core.models.RuleCondition
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -63,11 +69,12 @@ class RuleEngineTest {
 
     @Test
     fun `multiple rules pick highest`() {
-        val rules = listOf(
-            Rule(intAttr.id, RuleCondition.ThresholdBand(77, 79), score = 5),
-            Rule(intAttr.id, RuleCondition.ThresholdBand(80, 85), score = 7),
-            Rule(intAttr.id, RuleCondition.ThresholdBand(90, null), score = 10),
-        )
+        val rules =
+            listOf(
+                Rule(intAttr.id, RuleCondition.ThresholdBand(77, 79), score = 5),
+                Rule(intAttr.id, RuleCondition.ThresholdBand(80, 85), score = 7),
+                Rule(intAttr.id, RuleCondition.ThresholdBand(90, null), score = 10),
+            )
         val entry = Entry(mapOf(intAttr.id to AttributeValue.IntegerValue(82)))
 
         val result = ruleEngine.evaluate(entry, listOf(intAttr), rules)
@@ -78,16 +85,18 @@ class RuleEngineTest {
 
     @Test
     fun `multiple attributes sum scores`() {
-        val rules = listOf(
-            Rule(intAttr.id, RuleCondition.MinValue(10), score = 3),
-            Rule(decAttr.id, RuleCondition.MinValue(100), score = 5),
-        )
-        val entry = Entry(
-            mapOf(
-                intAttr.id to AttributeValue.IntegerValue(12),
-                decAttr.id to AttributeValue.DecimalValue(200.0),
-            ),
-        )
+        val rules =
+            listOf(
+                Rule(intAttr.id, RuleCondition.MinValue(10), score = 3),
+                Rule(decAttr.id, RuleCondition.MinValue(100), score = 5),
+            )
+        val entry =
+            Entry(
+                mapOf(
+                    intAttr.id to AttributeValue.IntegerValue(12),
+                    decAttr.id to AttributeValue.DecimalValue(200.0),
+                ),
+            )
 
         val result = ruleEngine.evaluate(entry, listOf(intAttr, decAttr), rules)
 

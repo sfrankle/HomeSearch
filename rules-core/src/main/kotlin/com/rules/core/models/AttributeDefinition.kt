@@ -1,4 +1,4 @@
-package com.rules.core
+package com.rules.core.models
 
 import java.util.UUID
 

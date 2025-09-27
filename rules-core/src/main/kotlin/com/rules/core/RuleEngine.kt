@@ -1,5 +1,11 @@
 package com.rules.core
 
+import com.rules.core.models.AttributeDefinition
+import com.rules.core.models.AttributeValue
+import com.rules.core.models.Entry
+import com.rules.core.models.EvaluationResult
+import com.rules.core.models.Rule
+import com.rules.core.models.RuleCondition
 import java.util.UUID
 
 /** Core evaluation engine that applies rules to entries and calculates scores. */

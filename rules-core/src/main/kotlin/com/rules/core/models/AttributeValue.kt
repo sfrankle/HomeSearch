@@ -1,4 +1,4 @@
-package com.rules.core
+package com.rules.core.models
 
 /**
  * Represents a value that can be stored against an attribute.
