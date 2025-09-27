@@ -36,23 +36,9 @@ class ExampleUsageTest {
                 score = 0, // This rule is for filtering, not scoring
             )
 
-        val band1Rule =
-            Rule(
-                attributeId = mainBedroomSqmAttr.id,
-                condition = RuleCondition.ThresholdBand(77, 79, 5),
-            )
-
-        val band2Rule =
-            Rule(
-                attributeId = mainBedroomSqmAttr.id,
-                condition = RuleCondition.ThresholdBand(80, 85, 7),
-            )
-
-        val band3Rule =
-            Rule(
-                attributeId = mainBedroomSqmAttr.id,
-                condition = RuleCondition.ThresholdBand(90, null, 10),
-            )
+        val band1Rule = Rule(mainBedroomSqmAttr.id, RuleCondition.ThresholdBand(77, 79), score = 5)
+        val band2Rule = Rule(mainBedroomSqmAttr.id, RuleCondition.ThresholdBand(80, 85), score = 7)
+        val band3Rule = Rule(mainBedroomSqmAttr.id, RuleCondition.ThresholdBand(90, null), score = 10)
 
         // Create entry with value 82 (as in the example)
         val entry = Entry(values = mapOf(mainBedroomSqmAttr.id to AttributeValue.IntegerValue(82)))
@@ -93,7 +79,8 @@ class ExampleUsageTest {
         val bedroomRule =
             Rule(
                 attributeId = mainBedroomSqmAttr.id,
-                condition = RuleCondition.ThresholdBand(80, 85, 7),
+                condition = RuleCondition.ThresholdBand(80, 85),
+                score = 7,
             )
 
         val priceRule =
@@ -102,7 +89,8 @@ class ExampleUsageTest {
         val locationRule =
             Rule(
                 attributeId = locationAttr.id,
-                condition = RuleCondition.Equals("Amsterdam", 10),
+                condition = RuleCondition.Equals("Amsterdam"),
+                score = 10,
             )
 
         // Create entry with multiple values
@@ -137,7 +125,8 @@ class ExampleUsageTest {
         val boundaryRule =
             Rule(
                 attributeId = mainBedroomSqmAttr.id,
-                condition = RuleCondition.ThresholdBand(80, 85, 5),
+                condition = RuleCondition.ThresholdBand(80, 85),
+                score = 5,
             )
 
         // Test exact minimum boundary

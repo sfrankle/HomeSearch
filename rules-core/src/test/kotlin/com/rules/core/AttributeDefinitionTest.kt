@@ -15,12 +15,14 @@ class AttributeDefinitionTest {
                 type = AttributeType.INTEGER,
             )
 
-        assertNotNull(attr.id)
-        assertEquals("bedroom_size", attr.name)
-        assertEquals("Bedroom Size", attr.displayName)
-        assertEquals(AttributeType.INTEGER, attr.type)
-        assertNull(attr.category)
-        assertNull(attr.order)
+        assertAll(
+            { assertNotNull(attr.id) },
+            { assertEquals("bedroom_size", attr.name) },
+            { assertEquals("Bedroom Size", attr.displayName) },
+            { assertEquals(AttributeType.INTEGER, attr.type) },
+            { assertNull(attr.category) },
+            { assertNull(attr.order) },
+        )
     }
 
     @Test
@@ -36,11 +38,21 @@ class AttributeDefinitionTest {
                 order = 1,
             )
 
-        assertEquals(id, attr.id)
-        assertEquals("price", attr.name)
-        assertEquals("Price", attr.displayName)
-        assertEquals(AttributeType.DECIMAL, attr.type)
-        assertEquals("Financial", attr.category)
-        assertEquals(1, attr.order)
+        assertAll(
+            { assertEquals(id, attr.id) },
+            { assertEquals("price", attr.name) },
+            { assertEquals("Price", attr.displayName) },
+            { assertEquals(AttributeType.DECIMAL, attr.type) },
+            { assertEquals("Financial", attr.category) },
+            { assertEquals(1, attr.order) },
+        )
+    }
+
+    @Test
+    fun `should generate unique ids when not provided`() {
+        val a1 = AttributeDefinition("attr1", "Attr 1", AttributeType.INTEGER)
+        val a2 = AttributeDefinition("attr2", "Attr 2", AttributeType.INTEGER)
+
+        assertNotEquals(a1.id, a2.id)
     }
 }

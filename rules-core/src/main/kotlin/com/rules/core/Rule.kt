@@ -11,8 +11,8 @@ import java.util.UUID
  * @param score Points awarded if the condition is met (ignored for InfoOnly)
  */
 data class Rule(
-    val id: UUID = UUID.randomUUID(),
     val attributeId: UUID,
     val condition: RuleCondition,
     val score: Int = 0,
+    val id: UUID = UUID.randomUUID(),
 )

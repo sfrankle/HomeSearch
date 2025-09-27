@@ -37,16 +37,9 @@ class EntryTest {
         val stringValue = AttributeValue.StringValue("test")
         val enumValue = AttributeValue.EnumValue("OPTION_A")
 
-        assertTrue(integerValue is AttributeValue.IntegerValue)
         assertEquals(42, integerValue.value)
-
-        assertTrue(decimalValue is AttributeValue.DecimalValue)
         assertEquals(3.14, decimalValue.value)
-
-        assertTrue(stringValue is AttributeValue.StringValue)
         assertEquals("test", stringValue.value)
-
-        assertTrue(enumValue is AttributeValue.EnumValue)
         assertEquals("OPTION_A", enumValue.value)
     }
 }

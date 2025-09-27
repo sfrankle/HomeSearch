@@ -12,3 +12,5 @@ trim_trailing_whitespace = true
 # Kotlin source files
 [*.{kt,kts}]
 max_line_length = 120
+ktlint_standard_function-naming = disabled
+ktlint_standard_no-wildcard-imports = disabled

@@ -132,3 +132,12 @@ Result:
 main_bedroom_sqm score: +7
 
 Total score: 7
+
+
+
+
+thoughts:
+
+what is the object the app(s) will use?
+it seems like to get a good UI you need (entry: Entry, attributes: List<AttributeDefinition>, rules: List<Rule>)
+which seems like a lot if we know we'll always want to return all those things

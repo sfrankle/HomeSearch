@@ -21,12 +21,12 @@ sealed class RuleCondition {
      * @param max Maximum value for this band (inclusive, null for no upper bound)
      * @param score Points awarded if value falls within this band
      */
-    data class ThresholdBand(val min: Int?, val max: Int?, val score: Int) : RuleCondition()
+    data class ThresholdBand(val min: Int?, val max: Int?) : RuleCondition()
 
     /**
      * Exact match evaluation - for string or enum values
      * @param value The exact value to match against
      * @param score Points awarded if value matches exactly
      */
-    data class Equals(val value: String, val score: Int) : RuleCondition()
+    data class Equals(val value: String) : RuleCondition()
 }

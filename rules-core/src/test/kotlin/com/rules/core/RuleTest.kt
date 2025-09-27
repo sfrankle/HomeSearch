@@ -23,7 +23,7 @@ class RuleTest {
     fun `should create rule with all fields`() {
         val id = UUID.randomUUID()
         val attributeId = UUID.randomUUID()
-        val condition = RuleCondition.ThresholdBand(5, 10, 15)
+        val condition = RuleCondition.ThresholdBand(5, 10)
 
         val rule = Rule(id = id, attributeId = attributeId, condition = condition, score = 20)
 

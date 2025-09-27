@@ -10,7 +10,7 @@ import java.util.UUID
  * @param evaluatedScore The computed total score (set by RuleEngine)
  */
 data class Entry(
-    val id: UUID = UUID.randomUUID(),
     val values: Map<UUID, AttributeValue>,
     val evaluatedScore: Int = 0,
+    val id: UUID = UUID.randomUUID(),
 )

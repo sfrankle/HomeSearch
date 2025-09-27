@@ -27,7 +27,7 @@ class RuleEngine {
                 var bestScore = 0
 
                 applicableRules.forEach { rule ->
-                    val score = evaluateRule(rule, entryValue, attribute)
+                    val score = evaluateRule(rule, entryValue)
                     if (score > bestScore) {
                         bestScore = score
                     }
@@ -43,50 +43,42 @@ class RuleEngine {
     }
 
     /** Evaluates a single rule against an attribute value. */
-    private fun evaluateRule(
-        rule: Rule,
-        value: AttributeValue,
-        @Suppress("UNUSED_PARAMETER") attribute: AttributeDefinition,
-    ): Int {
-        return when (rule.condition) {
+    private fun evaluateRule(rule: Rule, value: AttributeValue): Int {
+        return when (val condition = rule.condition) {
             is RuleCondition.InfoOnly -> 0
             is RuleCondition.MinValue -> {
                 when (value) {
-                    is AttributeValue.IntegerValue -> {
-                        if (value.value >= rule.condition.min) rule.score else 0
-                    }
-                    is AttributeValue.DecimalValue -> {
-                        if (value.value >= rule.condition.min) rule.score else 0
-                    }
-                    else -> 0 // Type mismatch
+                    is AttributeValue.IntegerValue ->
+                        if (value.value >= condition.min) rule.score else 0
+                    is AttributeValue.DecimalValue ->
+                        if (value.value >= condition.min) rule.score else 0
+                    else -> 0
                 }
             }
             is RuleCondition.ThresholdBand -> {
                 when (value) {
                     is AttributeValue.IntegerValue -> {
-                        val intValue = value.value
-                        val min = rule.condition.min ?: Int.MIN_VALUE
-                        val max = rule.condition.max ?: Int.MAX_VALUE
-                        if (intValue >= min && intValue <= max) rule.condition.score else 0
+                        val intVal = value.value
+                        val min = condition.min ?: Int.MIN_VALUE
+                        val max = condition.max ?: Int.MAX_VALUE
+                        if (intVal in min..max) rule.score else 0
                     }
                     is AttributeValue.DecimalValue -> {
-                        val doubleValue = value.value
-                        val min = rule.condition.min?.toDouble() ?: Double.MIN_VALUE
-                        val max = rule.condition.max?.toDouble() ?: Double.MAX_VALUE
-                        if (doubleValue >= min && doubleValue <= max) rule.condition.score else 0
+                        val dblVal = value.value
+                        val min = condition.min?.toDouble() ?: Double.NEGATIVE_INFINITY
+                        val max = condition.max?.toDouble() ?: Double.POSITIVE_INFINITY
+                        if (dblVal in min..max) rule.score else 0
                     }
-                    else -> 0 // Type mismatch
+                    else -> 0
                 }
             }
             is RuleCondition.Equals -> {
                 when (value) {
-                    is AttributeValue.StringValue -> {
-                        if (value.value == rule.condition.value) rule.condition.score else 0
-                    }
-                    is AttributeValue.EnumValue -> {
-                        if (value.value == rule.condition.value) rule.condition.score else 0
-                    }
-                    else -> 0 // Type mismatch
+                    is AttributeValue.StringValue ->
+                        if (value.value == condition.value) rule.score else 0
+                    is AttributeValue.EnumValue ->
+                        if (value.value == condition.value) rule.score else 0
+                    else -> 0
                 }
             }
         }
