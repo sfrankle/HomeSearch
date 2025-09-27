@@ -37,3 +37,6 @@ Thumbs.db
 
 # If you use caches (optional, safe to ignore)
 .kotlinc/
+
+
+docs/cursor-instructions.md

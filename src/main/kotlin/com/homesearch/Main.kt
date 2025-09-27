@@ -13,8 +13,9 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import com.homesearch.core.AppPaths
 import com.homesearch.data.ConfigManager
-import mu.KotlinLogging
+import com.homesearch.data.db.DatabaseFactory
 import javax.swing.JOptionPane
+import mu.KotlinLogging
 
 fun main() {
     // Point Logback to the right log dir
@@ -32,23 +33,38 @@ fun main() {
         )} ${System.getProperty("os.version")} (${System.getProperty("os.arch")})"
     }
 
+    // Initialize database
+    try {
+        DatabaseFactory.init()
+        logger.info { "Database initialized successfully" }
+    } catch (e: Exception) {
+        logger.error(e) { "Failed to initialize database" }
+        JOptionPane.showMessageDialog(
+                null,
+                "Failed to initialize database. Check logs for details.",
+                "${appMetadata.name} Database Error",
+                JOptionPane.ERROR_MESSAGE,
+        )
+        System.exit(1)
+    }
+
     // 🔑 Global handler for uncaught exceptions
     Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
         logger.error(throwable) { "Unhandled exception in thread ${thread.name}" }
 
         // Show user-friendly popup (Swing dialog)
         JOptionPane.showMessageDialog(
-            null,
-            "Oops! Something went wrong.\nDetails were saved to the logs.",
-            "${appMetadata.name} Error",
-            JOptionPane.ERROR_MESSAGE,
+                null,
+                "Oops! Something went wrong.\nDetails were saved to the logs.",
+                "${appMetadata.name} Error",
+                JOptionPane.ERROR_MESSAGE,
         )
     }
 
     application {
         Window(
-            onCloseRequest = { System.exit(0) },
-            title = "${appMetadata.name} v${appMetadata.version}",
+                onCloseRequest = { System.exit(0) },
+                title = "${appMetadata.name} v${appMetadata.version}",
         ) { App() }
     }
 }
