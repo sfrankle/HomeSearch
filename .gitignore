@@ -12,6 +12,8 @@
 *.iml
 *.ipr
 *.iws
+.editorconfig
+.vscode/settings.json
 
 # OS cruft
 .DS_Store
